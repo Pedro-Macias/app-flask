@@ -12,7 +12,7 @@ app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'pedro'
 app.config['MYSQL_PASSWORD'] = '123'
-app.config['MYSQL_HOS'] = 'contactos_flask'
+app.config['MYSQL_DB'] = 'contactos_flask'
 
 mysql = MySQL(app)
 
@@ -30,6 +30,13 @@ def agregar_contactos ():
         print(nombre)
         print(telefono)
         print(email)
+        #creamos un cursor a MYSQL
+        cursor = mysql.connection.cursor()
+        #escribimos la consulta que vamos a enviar
+        cursor.execute('INSERT INTO contactos(nombre, telefono, email) VALUES (%s, %s, %s)',
+        (nombre, telefono, email))
+        # enviamos a la base de datos
+        mysql.connection.commit()
         return 'recibido'
 
 
