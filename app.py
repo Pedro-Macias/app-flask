@@ -1,18 +1,24 @@
-# MINUTO 23.08
+
 
 
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import redirect
+from flask import url_for
+from flask import flash
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
-# conectarse a la base de datos
+# conectarse a la base de datos MYSQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'pedro'
 app.config['MYSQL_PASSWORD'] = '123'
 app.config['MYSQL_DB'] = 'contactos_flask'
+
+# Iniciar una session 
+app.secret_key = 'mysecretkey'
 
 mysql = MySQL(app)
 
@@ -37,7 +43,10 @@ def agregar_contactos ():
         (nombre, telefono, email))
         # enviamos a la base de datos
         mysql.connection.commit()
-        return 'recibido'
+        # con flash , podemos enviar un mensaje
+        flash('Contacto Agregado Satisfactoriamente')
+        # lo redireccionarmos a la pagina principal una vez enviado el dato
+        return redirect(url_for('index'))
 
 
 @app.route('/editar')
