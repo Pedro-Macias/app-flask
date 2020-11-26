@@ -1,0 +1,7 @@
+<form action="/actualizar/{{contacto.0}}" method="POST">
+    <!-- importante el value , es lo que recibimos -->
+    <input type="text" name="nombre" placeholder="Nombre" value = "{{ contacto.1 }}">
+    <input type="text" name="telefono" placeholder="Telefono" value = "{{ contacto.2 }}">
+    <input type="text" name="email" placeholder="E-Mail" value = "{{ contacto.3 }}">
+    <button type="submit"> Guardar</button>
+</form>

@@ -56,9 +56,39 @@ def agregar_contactos ():
         return redirect(url_for('index'))
 
 
-@app.route('/editar')
-def editar():
-    return 'editar contactos'
+@app.route('/editar/<string:id>')
+def get_editar(id):
+    # conectamos con la base de datos
+    cursor = mysql.connection.cursor()
+    # escribimos la consulta que queremos 
+    cursor.execute('SELECT * FROM contactos WHERE id = %s',(id))
+    # ejecuctamos la consulta , recibiendo la tupla
+    dato = cursor.fetchall()
+    return render_template('editar.html',contacto = dato[0])
+
+@app.route('/actualizar/<string:id>', methods = ['POST'])
+def actualizar(id):
+    # si el metodo de envio es POST
+    if request.method == 'POST':
+        # recibimos todos los datos
+        nombre = request.form['nombre']
+        telefono = request.form['telefono']
+        email = request.form['email']
+        # conectamos con la base de datos
+        cursor = mysql.connection.cursor()
+        # la consulta que vamos a hacer en MYSQL
+        cursor.execute('''
+            UPDATE contactos 
+            SET nombre = %s,
+            telefono = %s, 
+            email = %s 
+            WHERE id = %s ''', (nombre, telefono, email, id))
+        # ejecutamos la orden
+        mysql.connection.commit()
+        # enviamos un mensaje 
+        flash('Contacto Actualizado')
+        return redirect(url_for('index'))
+
 
 # a la ruta borrar , le indicamos que recibe el parametro id
 @app.route('/borrar/<string:id>')
