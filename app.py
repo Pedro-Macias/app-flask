@@ -11,13 +11,13 @@ from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
-# conectarse a la base de datos MYSQL
+# CONEXION a la base de datos MYSQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'pedro'
 app.config['MYSQL_PASSWORD'] = '123'
 app.config['MYSQL_DB'] = 'contactos_flask'
 
-# Iniciar una session 
+# INICIAR  una session 
 app.secret_key = 'mysecretkey'
 
 mysql = MySQL(app)
@@ -25,7 +25,14 @@ mysql = MySQL(app)
 # rutas de las paginas
 @app.route('/')
 def index ():
-    return render_template('index.html')
+    #conectamos con la base de datos . con el cursor
+    cursor = mysql.connection.cursor()
+    # le damos la orden , lo que queremos obtener
+    cursor.execute('SELECT * FROM contactos')
+    #ejecutamos la orden y obtenemos los datos , almacenandolos en una variable
+    datos = cursor.fetchall()
+    print(datos)
+    return render_template('index.html', contactos = datos)
 
 @app.route('/agregar_contactos', methods = ['POST'])
 def agregar_contactos ():

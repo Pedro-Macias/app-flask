@@ -8,9 +8,32 @@
         {% endfor %}
     {% endif %}
 {% endwith %}
+<!-- formulario de contactos -->
 <form action="/agregar_contactos" method="POST">
     <input type="text" name="nombre" placeholder="Nombre">
     <input type="text" name="telefono" placeholder="Telefono">
     <input type="text" name="email" placeholder="E-Mail">
     <button type="submit"> Guardar</button>
 </form>
+
+<!-- tabla de contactos -->
+
+<table>
+    <thead>
+        <tr>
+            <td>Nombre</td>
+            <td>Telefono</td>
+            <td>Email</td>
+            <td>Operaciones</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contacto in contactos %}
+        <tr>
+           <td> {{contacto.1 }} </td>
+           <td> {{ contacto.2 }}</td>
+           <td> {{ contacto.3 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
