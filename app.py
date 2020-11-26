@@ -60,10 +60,19 @@ def agregar_contactos ():
 def editar():
     return 'editar contactos'
 
-@app.route('/borrar')
-def borrar():
-    return ' borrar contactos'
-
+# a la ruta borrar , le indicamos que recibe el parametro id
+@app.route('/borrar/<string:id>')
+def borrar(id):
+    # nos conectamos a MYSQL
+    cursor = mysql.connection.cursor()
+    # ejecutamos la orden , que borre de la tabla la linea con el id que indicamos
+    cursor.execute('DELETE FROM contactos WHERE id = {0}'.format(id))
+    # enviamos a la base de datos para ejecutar
+    mysql.connection.commit()
+    # enviamos un mensaje
+    flash('Contacto Eliminado Correctamente ')
+    #redireccionamos a la pagina
+    return redirect(url_for('index'))
 
 
 

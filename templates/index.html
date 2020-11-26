@@ -33,6 +33,11 @@
            <td> {{contacto.1 }} </td>
            <td> {{ contacto.2 }}</td>
            <td> {{ contacto.3 }}</td>
+           <!-- creamos enlaces de editar y eliminar -->
+           <td>
+            <a href="/editar/{{ contacto.0 }}">Editar</a>
+            <a href="/borrar/{{ contacto.0 }}">Borrar</a>
+           </td>
         </tr>
         {% endfor %}
     </tbody>
