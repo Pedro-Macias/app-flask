@@ -5,50 +5,85 @@
 <!-- inicio del cuerpo del body -->
 {% block body %}
 
-<!-- recibir el mesaje dentro de una variable-->
-{% with mensajes = get_flashed_messages() %}
-<!-- si existe el mensaje lo recorremos -->
-    {% if mensajes %}
-        {% for mensaje in mensajes %}
-        <!-- imprimimos el mensaje -->
-        <p>{{ mensaje }}</p>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
-<!-- formulario de contactos -->
-<form action="/agregar_contactos" method="POST">
-    <input type="text" name="nombre" placeholder="Nombre">
-    <input type="text" name="telefono" placeholder="Telefono">
-    <input type="text" name="email" placeholder="E-Mail">
-    <button type="submit"> Guardar</button>
-</form>
+<div class ='row'>
 
-<!-- tabla de contactos -->
+    <div class="col-md-5">
+        <div class='card card-body'>
 
-<table>
-    <thead>
-        <tr>
-            <td>Nombre</td>
-            <td>Telefono</td>
-            <td>Email</td>
-            <td>Operaciones</td>
-        </tr>
-    </thead>
-    <tbody>
-        {% for contacto in contactos %}
-        <tr>
-            <td> {{contacto.1 }} </td>
-            <td> {{ contacto.2 }}</td>
-            <td> {{ contacto.3 }}</td>
-            <!-- creamos enlaces de editar y eliminar -->
-            <td>
-                <a href="/editar/{{ contacto.0 }}">Editar</a>
-                <a href="/borrar/{{ contacto.0 }}">Borrar</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            <!-- recibir el mesaje dentro de una variable-->
+            {% with mensajes = get_flashed_messages() %}
+            <!-- si existe el mensaje lo recorremos -->
+                {% if mensajes %}
+                    {% for mensaje in mensajes %}
+                    <!-- imprimimos el mensaje -->
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            {{ mensaje }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    
+                    <p></p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <h4 class='text-center text-primary pb-2'>Agregar un contacto</h4>
+            <!-- formulario de contactos -->
+            <form action="/agregar_contactos" method="POST" >
+                <div class="form-group">
+                    <input type="text" name="nombre" placeholder="Nombre" class="form-control">
+                </div>
+                <div class="form-group">   
+                    <input type="text" name="telefono" placeholder="Telefono" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="email" placeholder="E-Mail" class="form-control">
+                </div>   
+                <div class="form-group"> 
+                    <button type="submit" class= 'btn btn-primary btn-block'> Guardar</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class='col-md-7'>
+            <!-- tabla de contactos -->
+        <h4 class='text-center text-primary pb-2'>Contactos</h4>
+
+        <table class='table table-striped table-sm'>
+            <thead>
+                <tr>
+                    <td>Nombre</td>
+                    <td>Telefono</td>
+                    <td>Email</td>
+                    <td>Operaciones</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contacto in contactos %}
+                <tr>
+                    <td> {{contacto.1 }} </td>
+                    <td> {{ contacto.2 }}</td>
+                    <td> {{ contacto.3 }}</td>
+                    <!-- creamos enlaces de editar y eliminar -->
+                    <td>
+                        <a href="/editar/{{ contacto.0 }}" class="btn btn-info">Editar</a>
+                        <a href="/borrar/{{ contacto.0 }}" class="btn btn-warning">Borrar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+
+
+
+
 
 <!-- final del body -->
 {% endblock %}
