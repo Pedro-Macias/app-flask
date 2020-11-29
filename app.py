@@ -37,12 +37,10 @@ def index ():
 @app.route('/agregar_contactos', methods = ['POST'])
 def agregar_contactos ():
     if request.method == 'POST':
+        # recibimos los datos
         nombre = request.form['nombre']
         telefono = request.form['telefono']
         email = request.form['email']
-        print(nombre)
-        print(telefono)
-        print(email)
         #creamos un cursor a MYSQL
         cursor = mysql.connection.cursor()
         #escribimos la consulta que vamos a enviar
