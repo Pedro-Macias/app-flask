@@ -51,9 +51,9 @@
             <!-- tabla de contactos -->
         <h4 class='text-center text-primary pb-2'>Contactos</h4>
 
-        <table class='table table-striped table-sm'>
+        <table class='table table-hover table-dark table-sm'>
             <thead>
-                <tr>
+                <tr class ='bg-primary'>
                     <td>Nombre</td>
                     <td>Telefono</td>
                     <td>Email</td>
@@ -69,7 +69,7 @@
                     <!-- creamos enlaces de editar y eliminar -->
                     <td>
                         <a href="/editar/{{ contacto.0 }}" class="btn btn-info">Editar</a>
-                        <a href="/borrar/{{ contacto.0 }}" class="btn btn-warning">Borrar</a>
+                        <a href="/borrar/{{ contacto.0 }}" class="btn btn-warning boton_borrar" >Borrar</a>
                     </td>
                 </tr>
                 {% endfor %}
